@@ -21,7 +21,7 @@ public class Screen
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int screenNumber;
+	private int screenId; //Screen Number
 	private Time screenTime;
 	private Date screenDate;
 	@OneToOne
