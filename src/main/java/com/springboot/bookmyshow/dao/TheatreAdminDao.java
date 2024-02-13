@@ -1,5 +1,6 @@
 package com.springboot.bookmyshow.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,11 @@ public class TheatreAdminDao
 			return theatreAdminRepo.save(theatreAdminFound);
 		}
 		return null;
+	}
+	
+	public List<TheatreAdmin> getAllTheatreAdmin()
+	{
+		return theatreAdminRepo.findAll();
 	}
 
 }

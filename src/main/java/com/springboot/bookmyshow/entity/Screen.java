@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,7 +25,8 @@ public class Screen
 	private int screenId; //Screen Number
 	private Time screenTime;
 	private Date screenDate;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Movie movie;
 	private Status status;
+	//no of seats
 }

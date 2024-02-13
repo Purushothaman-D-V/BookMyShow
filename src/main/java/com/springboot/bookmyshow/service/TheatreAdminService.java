@@ -1,5 +1,7 @@
 package com.springboot.bookmyshow.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +63,31 @@ public class TheatreAdminService
 		responseStructure.setData(updatedTheatreAdmin);
 		
 		return new ResponseEntity<ResponseStructure<TheatreAdmin>>(responseStructure,HttpStatus.OK);
+	}
+	
+	public ResponseEntity<ResponseStructure<TheatreAdmin>> theatreAdminLogin(String theatreAdminEmail, String theatreAdminPassword)
+	{
+		List<TheatreAdmin> theatreAdmin = theatreAdminDao.getAllTheatreAdmin(); 
+		
+		for(TheatreAdmin theatreAdmin2 : theatreAdmin)
+		{
+			if(theatreAdmin2.getTheatreAdminEmail().equals(theatreAdminEmail))
+			{
+				if(theatreAdmin2.getTheatreAdminPassword().equals(theatreAdminPassword))
+				{
+					ResponseStructure<TheatreAdmin> responseStructure = new ResponseStructure<TheatreAdmin>();
+					
+					responseStructure.setMessage("Theatre Admin Login Successfull");
+					responseStructure.setStatus(HttpStatus.FOUND.value());
+					responseStructure.setData(theatreAdmin2);
+					
+					return new ResponseEntity<ResponseStructure<TheatreAdmin>>(responseStructure,HttpStatus.FOUND);
+				}
+				return null; //password incorrect
+			}
+			return null; // email is not registered
+		}
+		return null;
 	}
 
 }

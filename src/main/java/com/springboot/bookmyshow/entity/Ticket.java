@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,12 +17,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Component
-public class User 
+public class Ticket 
 {
-	private int userId;
-	private String userName;
-	private String userEmail;
-	private String userPassword;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int ticketId;
+	private String movieName;
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Booking> booking;
+	private List<Seat> seat;
+	//private Movie movie;
+	private Status status;
+
 }

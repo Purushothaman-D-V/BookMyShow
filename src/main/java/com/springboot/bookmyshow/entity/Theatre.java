@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,8 +25,8 @@ public class Theatre
 	private int theatreId;
 	private String theatreLocation;
 	private String theatreName;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private TheatreAdmin theatreAdmin;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Screen> screen;
 }

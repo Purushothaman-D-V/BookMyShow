@@ -46,4 +46,10 @@ public class AdminController
 	{
 		return adminService.updateAdmin(admin, adminId);
 	}
+	
+	@GetMapping("adminLogin")
+	public ResponseEntity<ResponseStructure<Admin>> adminLogin(@RequestParam String adminMail,@RequestParam String adminPassword)
+	{
+		return adminService.adminLogin(adminMail, adminPassword);
+	}
 }
