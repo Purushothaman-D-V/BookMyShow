@@ -41,7 +41,7 @@ public class ReviewController
 	}
 	
 	@PutMapping
-	public ResponseEntity<ResponseStructure<Review>> updateBooking(@RequestBody Review review,@RequestParam int reviewId)
+	public ResponseEntity<ResponseStructure<Review>> updateReview(@RequestBody Review review,@RequestParam int reviewId)
 	{
 		return reviewService.updateReview(review, reviewId);
 	}

@@ -41,11 +41,12 @@ public class TheatreAdminController
 	}
 	
 	@PutMapping
-	public ResponseEntity<ResponseStructure<TheatreAdmin>> updateBooking(@RequestBody TheatreAdmin theatreAdmin,@RequestParam int theatreAdminId)
+	public ResponseEntity<ResponseStructure<TheatreAdmin>> updateTheatreAdmin(@RequestBody TheatreAdmin theatreAdmin,@RequestParam int theatreAdminId)
 	{
 		return theatreAdminService.updateTheatreAdmin(theatreAdmin, theatreAdminId);
 	}
 	
+	@GetMapping("theatreAdminLogin")
 	public ResponseEntity<ResponseStructure<TheatreAdmin>> theatreAdminLogin(@RequestParam String theatreAdminEmail,@RequestParam String theatreAdminPassword)
 	{
 		return theatreAdminService.theatreAdminLogin(theatreAdminEmail, theatreAdminPassword);

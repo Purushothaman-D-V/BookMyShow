@@ -35,13 +35,13 @@ public class ScreenController
 	}
 	
 	@DeleteMapping
-	public ResponseEntity<ResponseStructure<Screen>> deleteReview(@RequestParam int screenId)
+	public ResponseEntity<ResponseStructure<Screen>> deleteScreen(@RequestParam int screenId)
 	{
 		return screenService.deleteScreen(screenId);
 	}
 	
 	@PutMapping
-	public ResponseEntity<ResponseStructure<Screen>> updateBooking(@RequestBody Screen screen,@RequestParam int screenId)
+	public ResponseEntity<ResponseStructure<Screen>> updateScreen(@RequestBody Screen screen,@RequestParam int screenId)
 	{
 		return screenService.updateScreen(screen, screenId);
 	}

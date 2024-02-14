@@ -11,38 +11,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springboot.bookmyshow.entity.Theatre;
-import com.springboot.bookmyshow.service.TheatreService;
+import com.springboot.bookmyshow.entity.Ticket;
+import com.springboot.bookmyshow.service.TicketService;
 import com.springboot.bookmyshow.util.ResponseStructure;
 
 @RestController
-@RequestMapping("theatre")
-public class TheatreController 
+@RequestMapping("ticket")
+public class TicketController
 {
 	@Autowired
-	TheatreService theatreService;
+	TicketService ticketService;
 
 	@PostMapping
-	public ResponseEntity<ResponseStructure<Theatre>> saveTheatre(@RequestBody Theatre theatre )
+	public ResponseEntity<ResponseStructure<Ticket>> saveTicket(@RequestBody Ticket ticket )
 	{
-		return theatreService.saveTheatre(theatre);
+		return ticketService.saveTicket(ticket);
 	}
 	
 	@GetMapping
-	public ResponseEntity<ResponseStructure<Theatre>> findTheatre(@RequestParam int theatreId)
+	public ResponseEntity<ResponseStructure<Ticket>> findTicket(@RequestParam int ticketId)
 	{
-		return theatreService.findTheatre(theatreId);
+		return ticketService.findTicket(ticketId);
 	}
 	
 	@DeleteMapping
-	public ResponseEntity<ResponseStructure<Theatre>> deleteTheatre(@RequestParam int theatreId)
+	public ResponseEntity<ResponseStructure<Ticket>> deleteTicket(@RequestParam int ticketId)
 	{
-		return theatreService.deleteTheatre(theatreId);
+		return ticketService.deleteTicket(ticketId);
 	}
 	
 	@PutMapping
-	public ResponseEntity<ResponseStructure<Theatre>> updateTheatre(@RequestBody Theatre theatre,@RequestParam int theatreId)
+	public ResponseEntity<ResponseStructure<Ticket>> updateTicket(@RequestBody Ticket ticket,@RequestParam int ticketId)
 	{
-		return theatreService.updateTheatre(theatre, theatreId);
+		return ticketService.updateTicket(ticket, ticketId);
 	}
 }

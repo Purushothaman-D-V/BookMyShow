@@ -20,6 +20,4 @@ public class Seat
 	private int seatId;
 	private String seatNumber;
 	private SeatClass seatClass;
-	
-
 }
