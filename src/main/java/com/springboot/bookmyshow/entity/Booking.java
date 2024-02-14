@@ -1,8 +1,6 @@
 package com.springboot.bookmyshow.entity;
 
 import java.sql.Time;
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 import jakarta.persistence.CascadeType;
@@ -29,5 +27,5 @@ public class Booking
 	private int bookingTicketCount;
 	private int bookingTicketAmount;
 	@OneToOne(cascade = CascadeType.ALL)
-	private List<Ticket> ticket;
+	private Ticket ticket;
 }

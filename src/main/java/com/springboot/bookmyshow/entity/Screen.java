@@ -10,7 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,8 +25,13 @@ public class Screen
 	private int screenId; //Screen Number
 	private Time screenTime;
 	private Date screenDate;
-	@OneToOne(cascade = CascadeType.ALL)
-	private Movie movie;
+	private int noOfSeats;
 	private Status status;
-	//no of seats
+	private int theatreId;
+	private int[] screenSeats;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Movie movie;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Theatre theatre;
+
 }

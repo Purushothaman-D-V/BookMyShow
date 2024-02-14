@@ -18,6 +18,8 @@ public class Seat
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int seatId;
-	private int noOfSeats;
+	private String seatNumber;
+	private SeatClass seatClass;
+	
 
 }
