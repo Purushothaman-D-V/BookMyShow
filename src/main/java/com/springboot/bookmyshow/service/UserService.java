@@ -1,5 +1,7 @@
 package com.springboot.bookmyshow.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,10 +58,33 @@ public class UserService
 		User updatedUser = userDao.updateUser(user, userId);
 		
 		ResponseStructure<User> responseStructure = new ResponseStructure<User>();
-		responseStructure.setMessage("Theatre Updated Successfully");
+		responseStructure.setMessage("User Updated Successfully");
 		responseStructure.setStatus(HttpStatus.OK.value());
 		responseStructure.setData(updatedUser);
 		
 		return new ResponseEntity<ResponseStructure<User>>(responseStructure,HttpStatus.OK);
+	}
+	
+	public ResponseEntity<ResponseStructure<User>> userLogin(String userMail, String userPassword)
+	{
+		List<User> user = userDao.getAllUser();
+		for(User u: user)
+		{
+			if(u.getUserEmail().equals(userMail))
+			{
+				if(u.getUserPassword().equals(userPassword))
+				{
+					ResponseStructure<User> responseStructure = new ResponseStructure<User>();
+					responseStructure.setMessage("User Login Successfull");
+					responseStructure.setStatus(HttpStatus.OK.value());
+					responseStructure.setData(u);
+					
+					return new ResponseEntity<ResponseStructure<User>>(responseStructure,HttpStatus.OK);
+				}
+				return null;
+			}
+			return null;
+		}
+		return null;
 	}
 }

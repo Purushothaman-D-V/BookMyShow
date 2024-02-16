@@ -1,11 +1,15 @@
 package com.springboot.bookmyshow.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.springboot.bookmyshow.dao.ScreenDao;
 import com.springboot.bookmyshow.dao.TheatreDao;
+import com.springboot.bookmyshow.entity.Screen;
 import com.springboot.bookmyshow.entity.Theatre;
 import com.springboot.bookmyshow.util.ResponseStructure;
 
@@ -14,6 +18,12 @@ public class TheatreService
 {
 	@Autowired
 	TheatreDao theatreDao;
+	
+	@Autowired
+	ScreenDao screenDao;
+	
+	@Autowired
+	TheatreAdminService theatreAdminService;
 	
 	public ResponseEntity<ResponseStructure<Theatre>> saveTheatre(Theatre theatre)
 	{
@@ -62,5 +72,31 @@ public class TheatreService
 		
 		return new ResponseEntity<ResponseStructure<Theatre>>(responseStructure,HttpStatus.OK);
 	}
-
+	
+	public ResponseEntity<ResponseStructure<Theatre>> addScreenToTheatre(int movieId, int theatreId, String theatreAdminEmail, String theatreAdminPassword)
+	{
+		if(theatreAdminService.theatreAdminLogin(theatreAdminEmail, theatreAdminPassword)!=null)
+		{
+			Screen screenFound = screenDao.findScreen(movieId);
+			Theatre theatre = theatreDao.findTheatre(theatreId);
+			
+			List<Screen> screenList = theatre.getScreen();
+			screenList.add(screenFound);
+			
+			theatre.setScreen(screenList);
+			Theatre updatedTheatre = theatreDao.updateTheatre(theatre, theatreId);
+			
+			if(updatedTheatre!=null)
+			{
+				ResponseStructure<Theatre> responseStructure = new ResponseStructure<Theatre>();
+				responseStructure.setMessage("Theatre Updated Successfully");
+				responseStructure.setStatus(HttpStatus.OK.value());
+				responseStructure.setData(updatedTheatre);
+				
+				return new ResponseEntity<ResponseStructure<Theatre>>(responseStructure,HttpStatus.OK);
+			}
+			return null;
+		}
+		return null;
+	}
 }

@@ -52,4 +52,10 @@ public class AdminController
 	{
 		return adminService.adminLogin(adminMail, adminPassword);
 	}
+	
+	@PutMapping("addTheatreToAdmin")
+	public ResponseEntity<ResponseStructure<Admin>> addTheatreToAdmin(@RequestParam int adminId,@RequestParam int theatreId,@RequestParam String adminMail,@RequestParam String adminPassword)
+	{
+		return adminService.addTheatreToAdmin(adminId, theatreId, adminMail, adminPassword);
+	}
 }

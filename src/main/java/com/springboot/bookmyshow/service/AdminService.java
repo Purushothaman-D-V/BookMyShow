@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.springboot.bookmyshow.dao.AdminDao;
+import com.springboot.bookmyshow.dao.TheatreDao;
 import com.springboot.bookmyshow.entity.Admin;
+import com.springboot.bookmyshow.entity.Theatre;
 import com.springboot.bookmyshow.util.ResponseStructure;
 
 @Service
@@ -16,6 +18,9 @@ public class AdminService
 {
 	@Autowired
 	AdminDao adminDao;
+	
+	@Autowired
+	TheatreDao theatreDao;
 	
 	public ResponseEntity<ResponseStructure<Admin>> saveAdmin(Admin admin)
 	{
@@ -86,5 +91,32 @@ public class AdminService
 			return null; //Email is not Registered
 		}
 		return null; // No list of admin is found
+	}
+	
+	public ResponseEntity<ResponseStructure<Admin>> addTheatreToAdmin(int adminId, int theatreId, String adminMail, String adminPassword)
+	{
+		if(adminLogin(adminMail, adminPassword)!=null)
+		{
+			Admin admin = adminDao.findAdmin(adminId);
+			Theatre theatre = theatreDao.findTheatre(theatreId);
+			
+			List<Theatre> theatreList = admin.getTheatre();
+			theatreList.add(theatre);
+			admin.setTheatre(theatreList);
+			
+			Admin updateAdmin = adminDao.updateAdmin(admin, adminId);
+			
+			if(updateAdmin!=null)
+			{
+				ResponseStructure<Admin> responseStructure = new ResponseStructure<Admin>();
+				responseStructure.setMessage("Theatre addded to Admin Successfully");
+				responseStructure.setStatus(HttpStatus.OK.value());
+				responseStructure.setData(updateAdmin);
+				
+				return new ResponseEntity<ResponseStructure<Admin>>(responseStructure,HttpStatus.OK);
+			}
+			return null; // Theatre is not added to admin
+		}
+		return null; //No admin Found
 	}
 }

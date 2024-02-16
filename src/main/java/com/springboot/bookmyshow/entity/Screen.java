@@ -1,8 +1,7 @@
 package com.springboot.bookmyshow.entity;
 
-import java.sql.Time;
-import java.util.Date;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 import org.springframework.stereotype.Component;
 
 import jakarta.persistence.CascadeType;
@@ -23,8 +22,8 @@ public class Screen
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int screenId; //Screen Number
-	private Time screenTime;
-	private Date screenDate;
+	private LocalTime screenTime;
+	private LocalDate screenDate;
 	private int noOfSeats;
 	private Status status;
 	private int theatreId;

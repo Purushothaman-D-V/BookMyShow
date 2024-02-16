@@ -1,6 +1,8 @@
 package com.springboot.bookmyshow.entity;
 
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import org.springframework.stereotype.Component;
 
 import jakarta.persistence.CascadeType;
@@ -22,8 +24,8 @@ public class Booking
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int bookingId;
 	private String bookingMovieName;
-	private String bookingDate;
-	private Time bookingTime;
+	private LocalDate bookingDate;
+	private LocalTime bookingTime;
 	private int bookingTicketCount;
 	private int bookingTicketAmount;
 	@OneToOne(cascade = CascadeType.ALL)

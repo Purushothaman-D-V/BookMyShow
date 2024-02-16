@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.springboot.bookmyshow.dao.MovieDao;
 import com.springboot.bookmyshow.dao.ScreenDao;
+import com.springboot.bookmyshow.entity.Movie;
 import com.springboot.bookmyshow.entity.Screen;
 import com.springboot.bookmyshow.util.ResponseStructure;
 
@@ -14,6 +16,9 @@ public class ScreenService
 {
 	@Autowired
 	ScreenDao screenDao;
+	
+	@Autowired
+	MovieDao movieDao;
 	
 	public ResponseEntity<ResponseStructure<Screen>> saveScreen(Screen screen)
 	{
@@ -57,6 +62,22 @@ public class ScreenService
 		
 		ResponseStructure<Screen> responseStructure = new ResponseStructure<Screen>();
 		responseStructure.setMessage("Screen Updated Successfully");
+		responseStructure.setStatus(HttpStatus.OK.value());
+		responseStructure.setData(updatedScreen);
+		
+		return new ResponseEntity<ResponseStructure<Screen>>(responseStructure,HttpStatus.OK);
+	}
+	
+	public ResponseEntity<ResponseStructure<Screen>> addMovieToScreen(int movieId, int screenId)
+	{
+		Screen screenFound = screenDao.findScreen(screenId);
+		Movie movieFound = movieDao.findMovie(movieId);
+		
+		screenFound.setMovie(movieFound);
+		Screen updatedScreen = screenDao.updateScreen(screenFound, screenId);
+		
+		ResponseStructure<Screen> responseStructure = new ResponseStructure<Screen>();
+		responseStructure.setMessage("Movie added to Screen Successfully");
 		responseStructure.setStatus(HttpStatus.OK.value());
 		responseStructure.setData(updatedScreen);
 		

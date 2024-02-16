@@ -46,4 +46,9 @@ public class ScreenController
 		return screenService.updateScreen(screen, screenId);
 	}
 
+	@PutMapping("addMovieToScreen")
+	public ResponseEntity<ResponseStructure<Screen>> addMovieToScreen(@RequestParam int movieId,@RequestParam int screenId)
+	{
+		return screenService.addMovieToScreen(movieId, screenId);
+	}
 }
