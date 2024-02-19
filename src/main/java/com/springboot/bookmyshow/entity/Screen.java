@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +24,7 @@ public class Screen
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int screenId; //Screen Number
+	private int screenId;
 	private LocalTime screenTime;
 	private LocalDate screenDate;
 	private int noOfSeats;
@@ -31,6 +34,7 @@ public class Screen
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Movie movie;
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private Theatre theatre;
 
 }

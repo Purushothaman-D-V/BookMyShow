@@ -1,5 +1,6 @@
 package com.springboot.bookmyshow.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,10 @@ public class MovieDao
 			return movieRepo.save(movieFound);
 		}
 		return null;
+	}
+	
+	public List<Movie> getAllMovie()
+	{
+		return movieRepo.findAll();
 	}
 }

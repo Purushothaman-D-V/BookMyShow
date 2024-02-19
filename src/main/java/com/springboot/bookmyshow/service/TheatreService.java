@@ -2,6 +2,7 @@ package com.springboot.bookmyshow.service;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import com.springboot.bookmyshow.dao.ScreenDao;
 import com.springboot.bookmyshow.dao.TheatreDao;
 import com.springboot.bookmyshow.entity.Screen;
 import com.springboot.bookmyshow.entity.Theatre;
+import com.springboot.bookmyshow.entity.TheatreAdmin;
 import com.springboot.bookmyshow.util.ResponseStructure;
 
 @Service
@@ -73,18 +75,28 @@ public class TheatreService
 		return new ResponseEntity<ResponseStructure<Theatre>>(responseStructure,HttpStatus.OK);
 	}
 	
-	public ResponseEntity<ResponseStructure<Theatre>> addScreenToTheatre(int movieId, int theatreId, String theatreAdminEmail, String theatreAdminPassword)
+	public ResponseEntity<ResponseStructure<Theatre>> addScreenToTheatre(int screenId, int theatreId, String theatreAdminEmail, String theatreAdminPassword)
 	{
-		if(theatreAdminService.theatreAdminLogin(theatreAdminEmail, theatreAdminPassword)!=null)
+		ResponseEntity<ResponseStructure<TheatreAdmin>> theatreAdmin = theatreAdminService.theatreAdminLogin(theatreAdminEmail, theatreAdminPassword);
+		
+		ModelMapper mapper = new ModelMapper();
+		TheatreAdmin theatreAdminDto = new TheatreAdmin();
+		mapper.map(theatreAdmin, theatreAdminDto);
+		
+		if(theatreAdmin!=null)
 		{
-			Screen screenFound = screenDao.findScreen(movieId);
-			Theatre theatre = theatreDao.findTheatre(theatreId);
+			Screen screenFound = screenDao.findScreen(screenId);
+			Theatre theatreFound = theatreDao.findTheatre(theatreId);
 			
-			List<Screen> screenList = theatre.getScreen();
+			screenFound.setTheatreId(theatreId);
+			screenFound.setTheatre(theatreFound);
+			screenDao.updateScreen(screenFound, screenFound.getScreenId());
+			List<Screen> screenList = theatreFound.getScreen();
 			screenList.add(screenFound);
 			
-			theatre.setScreen(screenList);
-			Theatre updatedTheatre = theatreDao.updateTheatre(theatre, theatreId);
+			theatreFound.setScreen(screenList);
+			theatreFound.setTheatreAdmin(theatreAdminDto);
+			Theatre updatedTheatre = theatreDao.updateTheatre(theatreFound, theatreId);
 			
 			if(updatedTheatre!=null)
 			{

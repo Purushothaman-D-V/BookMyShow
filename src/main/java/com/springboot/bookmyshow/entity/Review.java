@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +22,8 @@ public class Review
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int reviewId;
+	@NotNull(message = "Review cannot be null")
+	@NotBlank(message = "Review cannot be Blank")
 	private String review;
 	private double ratings;
 	private int reviewUserId;

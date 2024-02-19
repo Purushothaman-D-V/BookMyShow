@@ -1,5 +1,7 @@
 package com.springboot.bookmyshow.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +63,18 @@ public class MovieService
 		responseStructure.setData(updatedMovie);
 		
 		return new ResponseEntity<ResponseStructure<Movie>>(responseStructure,HttpStatus.OK);
+	}
+	
+	public ResponseEntity<ResponseStructure<List<Movie>>> getAllMovie()
+	{
+		List<Movie> movieList = movieDao.getAllMovie();
+		
+		ResponseStructure<List<Movie>> responseStructure = new ResponseStructure<List<Movie>>();
+		responseStructure.setMessage("All Movies Found");
+		responseStructure.setStatus(HttpStatus.FOUND.value());
+		responseStructure.setData(movieList);
+		
+		return new ResponseEntity<ResponseStructure<List<Movie>>>(responseStructure,HttpStatus.FOUND);
 	}
 
 }

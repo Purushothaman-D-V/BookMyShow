@@ -1,5 +1,7 @@
 package com.springboot.bookmyshow.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,4 +48,9 @@ public class MovieController
 		return movieService.updateMovie(movie, movieId);
 	}
 
+	@GetMapping("getAllMovie")
+	public ResponseEntity<ResponseStructure<List<Movie>>> getAllMovie()
+	{
+		return movieService.getAllMovie();
+	}
 }

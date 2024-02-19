@@ -47,8 +47,8 @@ public class TheatreController
 	}
 	
 	@PutMapping("addScreenToTheatre")
-	public ResponseEntity<ResponseStructure<Theatre>> addScreenToTheatre(@RequestParam int movieId,@RequestParam int theatreId,@RequestParam String theatreAdminEmail,@RequestParam String theatreAdminPassword)
+	public ResponseEntity<ResponseStructure<Theatre>> addScreenToTheatre(@RequestParam int screenId,@RequestParam int theatreId,@RequestParam String theatreAdminEmail,@RequestParam String theatreAdminPassword)
 	{
-		return theatreService.addScreenToTheatre(movieId, theatreId, theatreAdminEmail, theatreAdminPassword);
+		return theatreService.addScreenToTheatre(screenId, theatreId, theatreAdminEmail, theatreAdminPassword);
 	}
 }

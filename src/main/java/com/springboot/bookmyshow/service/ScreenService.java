@@ -24,6 +24,10 @@ public class ScreenService
 	{
 		Screen screenSaved = screenDao.saveScreen(screen);
 		
+		//-->
+		screenSaved.setScreenSeats(new int[screenSaved.getNoOfSeats()]);
+		screenDao.updateScreen(screenSaved, screenSaved.getScreenId());
+		
 		ResponseStructure<Screen> responseStructure = new ResponseStructure<Screen>();
 		responseStructure.setMessage("Screen Saved Successfully");
 		responseStructure.setStatus(HttpStatus.CREATED.value());

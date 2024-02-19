@@ -27,6 +27,7 @@ public class Booking
 	private LocalDate bookingDate;
 	private LocalTime bookingTime;
 	private int bookingTicketCount;
+	private SeatClass seatClass;
 	private int bookingTicketAmount;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Ticket ticket;
